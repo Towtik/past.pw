@@ -1,44 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Past.pw URL Shortener</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <!-- Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <!-- Google Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .hero {
+      background: url('https://source.unsplash.com/1600x900/?nature,technology') no-repeat center center;
+      background-size: cover;
+      height: 80vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .feature-icon {
+      font-size: 4rem;
+      color: #42a5f5;
+    }
+    footer {
+      padding: 20px 0;
+    }
+  </style>
 </head>
 <body>
-<h1>Past.pw URL Shortener</h1>
 
-<div id="formDiv">
-  <input type="text" id="longUrl" placeholder="Enter URL here" size="50">
-  <button id="shortenBtn">Shorten</button>
-  <p id="result"></p>
-</div>
+  <!-- Navbar -->
+  <nav class="blue">
+    <div class="nav-wrapper container">
+      <a href="#!" class="brand-logo">MyBrand</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="btn white blue-text" href="#signup">Sign Up</a></li>
+      </ul>
+    </div>
+  </nav>
 
-<script>
-const scriptUrl = 'https://script.google.com/macros/s/AKfycbwv27hmH1FKcz_g-K1ju-CKunU4sqUWNMAHYuDrQNPL57Gt0hddVSYmfGQfedxYB4Zn/exec';
+  <!-- Mobile Nav -->
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#signup">Sign Up</a></li>
+  </ul>
 
-// Handle new URL submission
-document.getElementById('shortenBtn').onclick = async () => {
-  const longUrl = document.getElementById('longUrl').value;
-  if (!longUrl.startsWith('http')) {
-    alert('Enter a valid URL starting with http/https');
-    return;
-  }
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <h1>Welcome to MyBrand</h1>
+      <p>Your amazing product tagline goes here</p>
+      <a class="btn-large blue" href="#signup">Get Started</a>
+    </div>
+  </section>
 
-  const formData = new FormData();
-  formData.append('longUrl', longUrl);
+  <!-- Features Section -->
+  <section id="features" class="section container">
+    <h2 class="center">Features</h2>
+    <div class="row">
+      <div class="col s12 m4 center">
+        <i class="material-icons feature-icon">flash_on</i>
+        <h5>Fast</h5>
+        <p>Experience lightning-fast performance.</p>
+      </div>
+      <div class="col s12 m4 center">
+        <i class="material-icons feature-icon">security</i>
+        <h5>Secure</h5>
+        <p>Top-notch security to protect your data.</p>
+      </div>
+      <div class="col s12 m4 center">
+        <i class="material-icons feature-icon">devices</i>
+        <h5>Responsive</h5>
+        <p>Looks great on any device or screen size.</p>
+      </div>
+    </div>
+  </section>
 
-  const response = await fetch(scriptUrl, { method: 'POST', body: formData });
-  const shortCode = await response.text();
-  const shortUrl = `${window.location.origin}/${shortCode}`;
+  <!-- About Section -->
+  <section id="about" class="section blue lighten-5">
+    <div class="container">
+      <h2 class="center">About Us</h2>
+      <p class="center">We are committed to providing the best solutions for our users with a focus on innovation, quality, and simplicity.</p>
+    </div>
+  </section>
 
-  document.getElementById('result').innerHTML = `Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
-};
+  <!-- Contact Section -->
+  <section id="contact" class="section container">
+    <h2 class="center">Contact</h2>
+    <div class="row">
+      <form class="col s12 m8 offset-m2">
+        <div class="input-field">
+          <input id="name" type="text" class="validate">
+          <label for="name">Name</label>
+        </div>
+        <div class="input-field">
+          <input id="email" type="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+        <div class="input-field">
+          <textarea id="message" class="materialize-textarea"></textarea>
+          <label for="message">Message</label>
+        </div>
+        <div class="center">
+          <button class="btn blue" type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+  </section>
 
-// Handle redirect when visiting a short URL
-const code = window.location.pathname.substring(1);
-if (code) {
-  window.location.href = `${scriptUrl}?code=${code}`;
-}
-</script>
+  <!-- Footer -->
+  <footer class="blue white-text center">
+    <div class="container">
+      <p>&copy; 2026 MyBrand. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(elems);
+    });
+  </script>
 </body>
 </html>
