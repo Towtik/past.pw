@@ -5,18 +5,22 @@
 <title>Past.pw URL Shortener</title>
 </head>
 <body>
-<h1>URL Shortener</h1>
-<input type="text" id="longUrl" placeholder="Enter URL here">
-<button id="shorten">Shorten</button>
-<p id="result"></p>
+<h1>Past.pw URL Shortener</h1>
+
+<div id="formDiv">
+  <input type="text" id="longUrl" placeholder="Enter URL here" size="50">
+  <button id="shortenBtn">Shorten</button>
+  <p id="result"></p>
+</div>
 
 <script>
 const scriptUrl = 'https://script.google.com/macros/s/AKfycbwv27hmH1FKcz_g-K1ju-CKunU4sqUWNMAHYuDrQNPL57Gt0hddVSYmfGQfedxYB4Zn/exec';
 
-document.getElementById('shorten').onclick = async () => {
+// Handle new URL submission
+document.getElementById('shortenBtn').onclick = async () => {
   const longUrl = document.getElementById('longUrl').value;
   if (!longUrl.startsWith('http')) {
-    alert('Please enter a valid URL starting with http or https');
+    alert('Enter a valid URL starting with http/https');
     return;
   }
 
@@ -25,10 +29,16 @@ document.getElementById('shorten').onclick = async () => {
 
   const response = await fetch(scriptUrl, { method: 'POST', body: formData });
   const shortCode = await response.text();
+  const shortUrl = `${window.location.origin}/${shortCode}`;
 
-  const shortUrl = `https://past.pw/${shortCode}`;
-  document.getElementById('result').innerHTML = `<a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+  document.getElementById('result').innerHTML = `Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
 };
+
+// Handle redirect when visiting a short URL
+const code = window.location.pathname.substring(1);
+if (code) {
+  window.location.href = `${scriptUrl}?code=${code}`;
+}
 </script>
 </body>
 </html>
